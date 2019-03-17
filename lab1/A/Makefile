@@ -1,22 +1,16 @@
 .PHONY: all run clean
 
-OCAMLC=ocamlc
-PACKAGE=hw1.zip
+OCAMLC=ocamlopt
+DEL=rm -f
 
-ifeq ($(OS),Windows_NT)
-	DEL=del /f
-else
-	DEL=rm -f
-endif
+all: main
 
-all: main.exe
+run: main
+	./main
 
-run: main.exe
-	./main.exe
-
-main.exe: src/main.ml
-	cd src && $(OCAMLC) main.ml -o ../main.exe
+main: src/main.ml
+	cd src && $(OCAMLC) main.ml -o ../main
 
 clean:
 	cd src && $(DEL) *.c* *.o*
-	$(DEL) main.exe
+	$(DEL) main
